@@ -1,0 +1,65 @@
+﻿@model OnPaceRaceAdmin.Models.Runner
+
+@{
+    ViewData["Title"] = $"Details - {Model.FirstName} {Model.LastName}";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <h2>@Model.FirstName @Model.LastName</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-sm-12">
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><br />
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <div class="col-lg-10 col-sm-12">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StateId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StateId)
+            </dd>
+        </dl>
+    </div>
+</div>
+
