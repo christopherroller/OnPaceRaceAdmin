@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPaceRaceAdmin.Data", "OnPaceRaceAdmin.Data\OnPaceRaceAdmin.Data.csproj", "{14A6AF00-E7CD-4287-8BB1-A25B1070EF69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPaceRaceAdmin.Web", "OnPaceRaceAdmin.Web\OnPaceRaceAdmin.Web.csproj", "{412E995D-243C-49BD-BE8C-87F8D53FE9BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPaceRaceAdmin.Web", "OnPaceRaceAdmin.Web\OnPaceRaceAdmin.Web.csproj", "{412E995D-243C-49BD-BE8C-87F8D53FE9BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPaceRaceAdmin.Repository", "OnPaceRaceAdmin.Repository\OnPaceRaceAdmin.Repository.csproj", "{B19B8642-E5E2-4865-B70A-F93DE4F36133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPaceRaceAdmin.Repository", "OnPaceRaceAdmin.Repository\OnPaceRaceAdmin.Repository.csproj", "{B19B8642-E5E2-4865-B70A-F93DE4F36133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnPaceRaceAdmin.Data", "OnPaceRaceAdmin.Data\OnPaceRaceAdmin.Data.csproj", "{15BBE065-9000-499C-9F14-813172AC8954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPaceRaceAdmin.Models", "OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Models.csproj", "{DAC6772E-0B13-4AF2-8162-D36D792BFDEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnPaceRaceAdmin.Models", "OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Models.csproj", "{2570ED60-FEFE-4ACC-AD67-1B976868188E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14A6AF00-E7CD-4287-8BB1-A25B1070EF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A6AF00-E7CD-4287-8BB1-A25B1070EF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14A6AF00-E7CD-4287-8BB1-A25B1070EF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14A6AF00-E7CD-4287-8BB1-A25B1070EF69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{412E995D-243C-49BD-BE8C-87F8D53FE9BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{412E995D-243C-49BD-BE8C-87F8D53FE9BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{412E995D-243C-49BD-BE8C-87F8D53FE9BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,10 +25,14 @@ Global
 		{B19B8642-E5E2-4865-B70A-F93DE4F36133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B19B8642-E5E2-4865-B70A-F93DE4F36133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B19B8642-E5E2-4865-B70A-F93DE4F36133}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAC6772E-0B13-4AF2-8162-D36D792BFDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAC6772E-0B13-4AF2-8162-D36D792BFDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAC6772E-0B13-4AF2-8162-D36D792BFDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAC6772E-0B13-4AF2-8162-D36D792BFDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BBE065-9000-499C-9F14-813172AC8954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BBE065-9000-499C-9F14-813172AC8954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BBE065-9000-499C-9F14-813172AC8954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BBE065-9000-499C-9F14-813172AC8954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2570ED60-FEFE-4ACC-AD67-1B976868188E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2570ED60-FEFE-4ACC-AD67-1B976868188E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2570ED60-FEFE-4ACC-AD67-1B976868188E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2570ED60-FEFE-4ACC-AD67-1B976868188E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

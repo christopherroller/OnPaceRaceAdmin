@@ -1,4 +1,5 @@
-﻿using OnPaceRaceAdmin.Data;
+﻿
+using OnPaceRaceAdmin.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace OnPaceRaceAdmin.Repository
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected AdminContext context { get; set; }
-        public RepositoryBase(AdminContext context)
+        protected ApplicationContext context { get; set; }
+        public RepositoryBase(ApplicationContext context)
         {
             this.context = context;
         }
@@ -36,9 +37,9 @@ namespace OnPaceRaceAdmin.Repository
             return this.context.Set<T>()
                 .Where(expression);
         }
-        public async Task SaveAsync()
+        public void Save()
         {
-            await this.context.SaveChangesAsync();
+            this.context.SaveChanges();
         }
         public void Update(int id, T entity)
         {

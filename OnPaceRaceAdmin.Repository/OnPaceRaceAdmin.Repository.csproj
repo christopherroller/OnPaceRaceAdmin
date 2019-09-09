@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnPaceRaceAdmin.Data\OnPaceRaceAdmin.Data.csproj" />
-    <ProjectReference Include="..\OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Models.csproj" />
+    <ProjectReference Include="..\OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Data.csproj" />
   </ItemGroup>
 
 </Project>

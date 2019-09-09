@@ -1,38 +1,139 @@
-﻿@model OnPaceRaceAdmin.Models.Runner
+﻿@model OnPaceRaceAdmin.ViewModels.EditRunnerViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Runner</h4>
+<h2>@Model.Runner.FirstName @Model.Runner.LastName</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-sm-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <input type="hidden" asp-for="Runner.Id" />
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Contact Info</h4>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.FirstName" class="control-label"></label>
+                        <input asp-for="Runner.FirstName" class="form-control" />
+                        <span asp-validation-for="Runner.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.PhoneNumber" class="control-label"></label>
+                        <input asp-for="Runner.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Runner.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.Address" class="control-label"></label>
+                        <input asp-for="Runner.Address" class="form-control" />
+                        <span asp-validation-for="Runner.Address" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <br />
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.LastName" class="control-label"></label>
+                        <input asp-for="Runner.LastName" class="form-control" />
+                        <span asp-validation-for="Runner.LastName" class="text-danger"></span>
+                    </div>
+                </div>                
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.Email" class="control-label"></label>
+                        <input asp-for="Runner.Email" class="form-control" />
+                        <span asp-validation-for="Runner.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.City" class="control-label"></label>
+                        <input asp-for="Runner.City" class="form-control" />
+                        <span asp-validation-for="Runner.City" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.StateId" class="control-label"></label>
+                        <select asp-for="Runner.StateId" asp-items="Model.States" class="form-control"></select>
+                        <span asp-validation-for="Runner.StateId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.Zipcode" class="control-label"></label>
+                        <input asp-for="Runner.Zipcode" class="form-control" />
+                        <span asp-validation-for="Runner.Zipcode" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <br />
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <h4>Demographic Data</h4>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <h4>Pacing Info</h4>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.Age" class="control-label"></label>
+                        <input asp-for="Runner.Age" class="form-control" />
+                        <span asp-validation-for="Runner.Age" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.GenderId" class="control-label"></label>
+                        <select asp-for="Runner.GenderId" asp-items="Model.Genders" class="form-control">
+                            <option>-- Select -- </option>
+                        </select>
+                        <span asp-validation-for="Runner.GenderId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.ClothingSizeId" class="control-label"></label>
+                        <select asp-for="Runner.ClothingSizeId" asp-items="Model.ClothingSizes" class="form-control">
+                            <option>-- Select -- </option>
+                        </select>
+                        <span asp-validation-for="Runner.ClothingSizeId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.ClothingSizeId" class="control-label"></label>
+                        <select asp-for="Runner.ClothingSizeId" asp-items="Model.ClothingSizes" class="form-control">
+                            <option>-- Select -- </option>
+                        </select>
+                        <span asp-validation-for="Runner.ClothingSizeId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <hr />
+
+
+
+
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnPaceRaceAdmin.Data;
-using OnPaceRaceAdmin.Models;
-using OnPaceRaceAdmin.Repository;
+using OnPaceRaceAdmin.ViewModels;
 
 namespace OnPaceRaceAdmin.Web.Controllers
 {
     public class RunnersController : Controller
     {
-        private readonly RunnerRepository _repo;
-
-        public RunnersController(IRunnerRepository repo)
+        private ApplicationContext DbContext { get; set; }
+        public RunnersController(ApplicationContext context)
         {
-            _repo = (RunnerRepository)repo;
+            DbContext = context;
         }
 
         // GET: Runners
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+
             try
             {
-                var runners = await _repo.GetAllRunners();
+                var runners = DbContext.Runners.Include(r=>r.Gender).Include(r=>r.State).OrderBy(o=>o.FirstName).ThenBy(o=>o.LastName).ToList();
                 return View(runners);
             }
             catch (Exception ex)
@@ -35,20 +32,19 @@ namespace OnPaceRaceAdmin.Web.Controllers
         }
 
         // GET: Runners/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
+            if(id != null)
             {
-                return NotFound();
+                var rvm = new DetailsRunnerViewModel(DbContext);
+                rvm.Runner = rvm.GetRunner((int)id);
+                rvm.RunnerNotes = rvm.GetRunnersNotes((int)id);
+                return View(rvm);
             }
-
-            var runner = await _repo.GetRunnerById((int)id);
-            if (runner == null)
+            else
             {
-                return NotFound();
+                return StatusCode(401, "Runner not found");
             }
-
-            return View(runner);
         }
 
         // GET: Runners/Create
@@ -62,11 +58,12 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,PhoneNumber")] Runner runner)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId")] Runner runner)
         {
             if (ModelState.IsValid)
             {
-                await _repo.CreateRunner(runner);
+                await DbContext.Runners.AddAsync(runner);
+                await DbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Details),new { runner.Id});
             }
             return View(runner);
@@ -75,17 +72,19 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // GET: Runners/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id != null)
             {
-                return NotFound();
+                var rvm = new EditRunnerViewModel(DbContext);
+                rvm.Runner = await rvm.GetRunner((int)id);
+                rvm.States = rvm.GetStates();
+                rvm.Genders = rvm.GetGenders();
+                rvm.ClothingSizes = rvm.GetClothingSizes(rvm.Runner.GenderId);
+                return View(rvm);
             }
-
-            var runner = await _repo.GetRunnerById((int)id);
-            if (runner == null)
+            else
             {
-                return NotFound();
+                return StatusCode(401, "Runner not found");
             }
-            return View(runner);
         }
 
         // POST: Runners/Edit/5
@@ -93,7 +92,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,PhoneNumber,StateId")] Runner runner)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId")]Runner runner)
         {
             if (id != runner.Id)
             {
@@ -102,19 +101,19 @@ namespace OnPaceRaceAdmin.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                await _repo.UpdateRunner(runner);                     
+                DbContext.Runners.Update(runner);                     
             }
             return View(runner);
         }
 
         // GET: Runners/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var runner = await _repo.GetRunnerById((int)id);
+            var runner = DbContext.Runners.Find((int)id);
         
             if (runner == null)
             {
@@ -129,12 +128,39 @@ namespace OnPaceRaceAdmin.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var runner = await _repo.GetRunnerById(id);
+            var runner = await DbContext.Runners.FindAsync((int)id);
             if(runner != null)
             {
-                await _repo.DeleteRunner(runner);
+                DbContext.Remove(runner);
+                await DbContext.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost, ActionName("AddNote")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddNote(string RunnerNote, int RunnerId)
+        {
+            var runner = DbContext.Runners.Find(RunnerId);
+            if(runner != null)
+            {
+
+                var note = new RunnerNote()
+                {
+                    Note = RunnerNote,
+                    RunnerId = RunnerId,
+                    DateAdded = DateTime.UtcNow
+                };
+                await DbContext.RunnerNotes.AddAsync(note);
+                await DbContext.SaveChangesAsync();
+                return Content(note.Note);
+            }
+            else
+            {
+                return Json(null);
+            }
+ 
+  
         }
     }
 }

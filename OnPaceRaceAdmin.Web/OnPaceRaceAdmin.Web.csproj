@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\OnPaceRaceAdmin.Data\OnPaceRaceAdmin.Data.csproj" />
     <ProjectReference Include="..\OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Models.csproj" />
-    <ProjectReference Include="..\OnPaceRaceAdmin.Repository\OnPaceRaceAdmin.Repository.csproj" />
   </ItemGroup>
 
 </Project>

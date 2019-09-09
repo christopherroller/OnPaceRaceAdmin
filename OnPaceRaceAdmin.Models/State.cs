@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace OnPaceRaceAdmin.Models
+namespace OnPaceRaceAdmin.Data
 {
     [Table("States")]
     public class State : IEntity

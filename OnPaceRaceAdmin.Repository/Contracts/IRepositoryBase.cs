@@ -14,7 +14,6 @@ namespace OnPaceRaceAdmin.Repository
         void Create(TEntity entity);
         void Update(int id, TEntity entity);
         void Delete(int id);
-
-        Task SaveAsync();
+        void Save();
     }
 } 
