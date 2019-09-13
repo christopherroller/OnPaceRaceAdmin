@@ -5,8 +5,8 @@
 }
 
 <div class="row">
-    <div class="col-lg-11 col-sm-12">
-        <h2 class="my-auto">@Model.Runner.FirstName @Model.Runner.LastName</h2>
+    <div class="col-lg-11 col-sm-12 my-auto">
+        <h2>@Model.Runner.FirstName @Model.Runner.LastName</h2>
     </div>
     <div class="col-lg-1 col-sm-12 my-auto">
         <a asp-action="Index" class="btn btn-primary float-right">Back</a>
@@ -18,108 +18,125 @@
     <div class="col-sm-12">
         <div class="row">
             <div class="col-lg-6 col-sm-12">
-                <div class="row">
-                    <div class="col-lg-11 col-sm-12">
-                        <h4>Runner Info</h4>
-                    </div>
-                    <div class="col-lg-1 col-sm-12 ml-auto my-auto">
-                        <a asp-action="Edit" asp-route-id="@Model.Runner.Id" class="btn btn-primary ml-auto">Edit</a>
-                    </div>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
                         <div class="row">
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>@Html.DisplayNameFor(model => model.Runner.FirstName)</h4>
-                                    @Html.DisplayFor(model => model.Runner.FirstName)
-                                </div>
+                            <div class="col-lg-10 col-sm-12 my-auto">
+                                <h4>Contact Info</h4>
                             </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>@Html.DisplayNameFor(model => model.Runner.LastName)</h4>
-                                    @Html.DisplayNameFor(model => model.Runner.LastName)
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>@Html.DisplayNameFor(model => model.Runner.Email)</h4>
-                                    @Html.DisplayFor(model => model.Runner.Email)
-
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                        @Html.DisplayNameFor(model => model.Runner.PhoneNumber)
-                                    </h4>
-                                    @Html.DisplayFor(model => model.Runner.PhoneNumber)
-                                </div>
+                            <div class="col-lg-2 col-sm-12 ml-auto my-auto">
+                                <a asp-action="Edit" asp-route-id="@Model.Runner.Id" class="btn btn-primary ml-auto float-right">Edit</a>
                             </div>
                         </div>
-                        <br />
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>@Html.DisplayNameFor(model => model.Runner.Gender)</h4>
-                                    @Html.DisplayFor(model => model.Runner.Gender)
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>@Html.DisplayNameFor(model => model.Runner.ClothingSize)</h4>
-                                    @Html.DisplayFor(model => model.Runner.ClothingSize)
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.FirstName)</h6>
+                                            @Html.DisplayFor(model => model.Runner.FirstName)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.LastName)</h6>
+                                            @Html.DisplayNameFor(model => model.Runner.LastName)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.Email)</h6>
+                                            @Html.DisplayFor(model => model.Runner.Email)
 
-                                    </h4>                                
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-lg-5 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                        @Html.DisplayNameFor(model => model.Runner.Address)
-                                    </h4>
-                                    @Html.DisplayFor(model => model.Runner.Address)
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                        @Html.DisplayNameFor(model => model.Runner.City)
-                                    </h4>
-                                    @Html.DisplayFor(model => model.Runner.City)
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                        @Html.DisplayNameFor(model => model.Runner.State)
-                                    </h4>
-                                    @Html.DisplayFor(model => model.Runner.State)
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.RunnerStatusId)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.RunnerStatusName)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-0">
+
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.PhoneNumber)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.PhoneNumber)
+                                        </div>
+                                    </div>
 
                                 </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-12">
-                                <div class="form-group">
-                                    <h4>
-                                        @Html.DisplayNameFor(model => model.Runner.Zipcode)
-                                    </h4>
-                                    @Html.DisplayFor(model => model.Runner.Zipcode)
 
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-5 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.Address)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.Address)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.City)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.City)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.State)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.State)
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>
+                                                @Html.DisplayNameFor(model => model.Runner.Zipcode)
+                                            </h6>
+                                            @Html.DisplayFor(model => model.Runner.Zipcode)
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.Gender)</h6>
+                                            @Html.DisplayFor(model => model.Runner.Gender)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.ClothingSize)</h6>
+                                            @Html.DisplayFor(model => model.Runner.ClothingSize)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>@Html.DisplayNameFor(model => model.Runner.Age)</h6>
+                                                @Html.DisplayFor(model => model.Runner.Age)
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-12">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,38 +144,81 @@
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">
-                <h4>Runner Notes</h4>
-                <form asp-action="AddNote" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="after" data-ajax-update="#runner-notes">
-                    <div class="form-group">
-                        <label for="RunnerNote">New Note: </label>
-                        <textarea type="text" name="RunnerNote" id="RunnerNote" class="form-control" required></textarea>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Runner Notes</h4>
                     </div>
-                    <input type="hidden" value="@Model.Runner.Id" name="RunnerId" id="RunnerId" />
-                    @Html.AntiForgeryToken()
-                    <input type="submit" class="btn btn-primary ml-auto" value="Add Note" />
-                </form>
-                <br />
-                <hr />
+                    <div class="card-body">
+                        <form asp-action="AddNote" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#runner-notes-@Model.Runner.Id">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="RunnerNote">New Note: </label>
+                                <textarea type="text" name="RunnerNote" id="RunnerNote" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" value="@Model.Runner.Id" name="RunnerId" id="RunnerId" />                            
+                                <input type="submit" class="btn btn-primary ml-auto float-right" value="Add Note" />
+                            </div>
 
-                @foreach (var note in Model.RunnerNotes)
-                {
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-12">
-                            @note.DateAdded.ToString("MM/dd/yyyy")
-                        </div>
-                        <div class="col-lg-9 col-sm-12">
-                            @note.Note
+                        </form>
+                        <br />
+                        <br />
+                        <div id="runner-notes-@Model.Runner.Id">
+                            @await Html.PartialAsync("_RunnerNotes", Model.RunnerNotes)
                         </div>
                     </div>
-                    <hr />
 
-                }
+                </div>
 
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Pacing Info</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+
+                            <div class="col-lg-6 col-sm-12">
+                                <form  asp-action="AddRacePaceAndRaceType" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#runner-race-paces-@Model.Runner.Id">
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <label for="RaceType">Race Type</label>
+                                        <select id="RaceTypeId" asp-items="Model.RaceTypes" class="form-control">
+                                            <option>-- Select -- </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="RacePaceFrom">Pace From</label>
+                                        <select id="RacePaceFromId" asp-items="Model.RacePaces" class="form-control">
+                                            <option>-- Select -- </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="RacePaceTo">Pace To</label>
+                                        <select id="RacePaceToId" asp-items="Model.RacePaces" class="form-control">
+                                            <option>-- Select -- </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" value="@Model.Runner.Id" name="RunnerId" id="RunnerId" />
+                                        <input type="submit" class="btn btn-primary ml-auto float-right" value="Add" />
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <div id="runner-race-paces-@Model.Runner.Id">
+                                    <h6>Current Race Types and Pace Info</h6>
+                                    @await Html.PartialAsync("_RaceLengthAndPaceSelector", Model.RunnerRacePaces)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
  
     </div>
 </div>
 </div>
-@section scripts{
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}

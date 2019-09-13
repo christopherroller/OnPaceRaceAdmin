@@ -19,6 +19,7 @@ namespace OnPaceRaceAdmin.Models
         public string Email { get; set; }
 
         [DataType(DataType.PhoneNumber)]
+        [DisplayFormat(DataFormatString = "{0:###-###-####}")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
@@ -48,5 +49,12 @@ namespace OnPaceRaceAdmin.Models
         [Display(Name = "Age")]
         [Range(18, 100, ErrorMessage = "Please enter valid Age")]
         public int? Age { get; set; }
+
+        [Display(Name = "Runner Status")]
+        public int RunnerStatusId { get; set; }
+
+        [Display(Name = "Runner Status")]
+        public string RunnerStatusName { get; set; }
+
     }
 }

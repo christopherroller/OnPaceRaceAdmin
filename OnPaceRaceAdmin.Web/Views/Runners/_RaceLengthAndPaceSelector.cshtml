@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OnPaceRaceAdmin.Models.RunnerRaceTypeAndPace>
+
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceTypeName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeFrom)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeTo)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RaceTypeName)
+                </td>
+  
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaceTimeFrom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaceTimeTo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

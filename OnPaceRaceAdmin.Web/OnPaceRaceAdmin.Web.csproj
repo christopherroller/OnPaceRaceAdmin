@@ -17,4 +17,8 @@
     <ProjectReference Include="..\OnPaceRaceAdmin.Models\OnPaceRaceAdmin.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>

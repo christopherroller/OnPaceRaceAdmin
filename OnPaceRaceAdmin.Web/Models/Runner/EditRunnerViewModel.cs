@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using OnPaceRaceAdmin.Data;
 using OnPaceRaceAdmin.Models;
 using OnPaceRaceAdmin.ViewModels.HelperClasses;
@@ -15,17 +16,25 @@ namespace OnPaceRaceAdmin.ViewModels
         public RunnerDTO Runner { get; set; }
         public List<SelectListItem> Genders { get; set; } 
         public List<SelectListItem> States { get; set; }
-
         public List<SelectListItem> ClothingSizes { get; set; }
+        public List<SelectListItem> RaceTypes { get; set; }
+        public List<RunnerRaceTypeAndPace> RunnerRaceTypes { get; set; }
+        public List<SelectListItem> RacePaces { get; set; }
 
         public EditRunnerViewModel(ApplicationContext context)
         {
             DbContext = context;
         }
 
+        public async Task InitModel(int Id)
+        {
+            Runner = await GetRunner(Id);
+            Genders = GetGenders();
+            States = GetStates();
+            ClothingSizes = GetClothingSizes(Runner.GenderId);
+        }
 
-
-        public async Task<RunnerDTO> GetRunner(int Id)
+        private async Task<RunnerDTO> GetRunner(int Id)
         {
             var entity =  await DbContext.Runners.FindAsync(Id);
             DbContext.Entry(entity).Reference(r => r.Gender);
@@ -54,17 +63,17 @@ namespace OnPaceRaceAdmin.ViewModels
             return runner;
         }
 
-        public List<SelectListItem> GetGenders()
+        private List<SelectListItem> GetGenders()
         {
             return DbContext.Genders.OrderBy(o => o.Name).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
         }
 
-        public List<SelectListItem> GetStates()
+        private List<SelectListItem> GetStates()
         {
             return DbContext.States.OrderBy(o => o.Name).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
         }
 
-        public List<SelectListItem> GetClothingSizes(int? genderId)
+        private List<SelectListItem> GetClothingSizes(int? genderId)
         {
             if (genderId != null)
             {
@@ -74,7 +83,29 @@ namespace OnPaceRaceAdmin.ViewModels
             {
                 return DbContext.ClothingSizes.OrderBy(o => o.Name).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
             }
+        }
 
+        public List<SelectListItem> GetRaceTypes()
+        { 
+            return DbContext.RaceTypes.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
+        }
+
+        public List<SelectListItem> GetRacePaces()
+        {
+            return DbContext.RacePaces.OrderBy(o=>o.Pace).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Pace.ToString() }).ToList();
+        }
+
+        public List<RunnerRaceTypeAndPace> GetRunnerRaceTypes(int RunnerId)
+        {
+            return DbContext.RunnerToRacePace.Include(i=> i.RacePaceFrom).Include(i => i.RacePaceTo).Include(i=>i.RaceType).Where(w=>w.RunnerId.Equals(RunnerId)).Select(s => new RunnerRaceTypeAndPace
+            {
+                Id = s.Id,
+                RunnerId = s.RunnerId,
+                RaceTypeId = s.RaceTypeId,
+                RaceTypeName = s.RaceType.Name,
+                PaceTimeFrom = s.RacePaceFrom.Pace.ToString(),
+                PaceTimeTo = s.RacePaceTo.Pace.ToString()
+            }).ToList();
         }
 
     }

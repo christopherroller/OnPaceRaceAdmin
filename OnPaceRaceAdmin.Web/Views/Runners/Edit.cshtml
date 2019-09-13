@@ -8,12 +8,28 @@
 <hr />
 <div class="row">
     <div class="col-sm-12">
-        <form asp-action="Edit">
+        <form asp-action="Edit" asp-controller="Runners">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Runner.Id" />
+            @Html.AntiForgeryToken()
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-lg-9 col-sm-12">
                     <h4>Contact Info</h4>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <table class="float-right">
+                        <tr>
+                            <td>
+                                <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+                            </td>
+                            <td>
+                                <input type="submit" value="Save Contact Info" class="btn btn-success" />
+
+                            </td>
+                        </tr>
+                    </table>
+         
                 </div>
             </div>
             <div class="row">
@@ -48,7 +64,7 @@
                         <input asp-for="Runner.LastName" class="form-control" />
                         <span asp-validation-for="Runner.LastName" class="text-danger"></span>
                     </div>
-                </div>                
+                </div>
                 <div class="col-lg-3 col-md-4 col-sm-12">
                     <div class="form-group">
                         <label asp-for="Runner.Email" class="control-label"></label>
@@ -80,13 +96,11 @@
                     </div>
                 </div>
             </div>
+
             <br />
             <div class="row">
                 <div class="col-lg-6 col-sm-6">
                     <h4>Demographic Data</h4>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                    <h4>Pacing Info</h4>
                 </div>
             </div>
             <div class="row">
@@ -115,36 +129,13 @@
                         <span asp-validation-for="Runner.ClothingSizeId" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-3 col-sm-12">
-                    <div class="form-group">
-                        <label asp-for="Runner.ClothingSizeId" class="control-label"></label>
-                        <select asp-for="Runner.ClothingSizeId" asp-items="Model.ClothingSizes" class="form-control">
-                            <option>-- Select -- </option>
-                        </select>
-                        <span asp-validation-for="Runner.ClothingSizeId" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <br />
-
-            <hr />
-
-
-
-
-
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");       
+    }
 }

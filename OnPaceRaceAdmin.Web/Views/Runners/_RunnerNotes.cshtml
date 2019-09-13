@@ -1,0 +1,34 @@
+﻿@model IEnumerable<OnPaceRaceAdmin.Models.RunnerNoteDTO>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr id="@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                <form asp-action="DeleteNote" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-success="RemoveNote" data-ajax-update="#@item.Id">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" value="@item.Id" name="noteId" id="noteId" />
+                    <input type="submit" class="btn btn-danger ml-auto float-right" value="Delete" />                  
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

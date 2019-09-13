@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OnPaceRaceAdmin.Models.RunnerRaceTypeAndPace>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RunnerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeFromId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaceTimeToId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunnerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RaceTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RaceTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaceTimeFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaceTimeFromId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaceTimeTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaceTimeToId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

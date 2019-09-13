@@ -5,13 +5,16 @@ namespace OnPaceRaceAdmin.Data
     public class ApplicationContext : DbContext
     {
         public DbSet<Runner> Runners { get; set; }
+        public DbSet<StatusRunner> StatusRunners { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<RunnerNote> RunnerNotes { get; set; }
         public DbSet<ClothingSize> ClothingSizes { get; set; }
         public DbSet<Race> Races { get; set; }
+        public DbSet<RaceStatus> RaceStatuses { get; set; }
         public DbSet<RacePace> RacePaces { get; set; }
         public DbSet<RaceType> RaceTypes { get; set; }
+        public DbSet<RunnerToRacePace> RunnerToRacePace { get; set; }
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
@@ -30,6 +33,9 @@ namespace OnPaceRaceAdmin.Data
             modelBuilder.Entity<Race>().ToTable("Race");
             modelBuilder.Entity<RacePace>().ToTable("RacePace");
             modelBuilder.Entity<RaceType>().ToTable("RaceType");
+            modelBuilder.Entity<StatusRunner>().ToTable("StatusRunner");
+            modelBuilder.Entity<RaceStatus>().ToTable("RaceStatus");
+            modelBuilder.Entity<RunnerToRacePace>().ToTable("RunnerToRacePace");
         }
     }
 }

@@ -29,5 +29,12 @@ namespace OnPaceRaceAdmin.Data
         public int RaceStateId { get; set; }
 
         public State State { get; set; }
+
+        [Column("RaceStatusId")]
+        [ForeignKey("RaceStatus")]
+        [Required]
+        public int RaceStatusId { get; set; }
+
+        public RaceStatus RaceStatus { get; set; }
     }
 }

@@ -34,14 +34,12 @@ namespace OnPaceRaceAdmin.Data
         [Column("StateId")]
         public int? StateId { get; set; }
 
-
         [ForeignKey("Gender")]
         [Column("GenderId")]
         public int? GenderId { get; set; }
 
         [Column("Age")]
         public int? Age { get; set; }
-
 
         [Column("ZipCode")]
         public string Zipcode { get; set; }
@@ -50,9 +48,13 @@ namespace OnPaceRaceAdmin.Data
         [Column("ClothingSizeId")]
         public int? ClothingSizeId { get; set; }
 
+        [ForeignKey("StatusRunner")]
+        [Column("RunnerStatusId")]
+        public int RunnerStatusId { get; set; }
+
         public Gender Gender { get; set; }
         public State State { get; set; }
-
         public ClothingSize ClothingSize { get; set; }
+        public StatusRunner StatusRunner { get; set; }
     }
 }
