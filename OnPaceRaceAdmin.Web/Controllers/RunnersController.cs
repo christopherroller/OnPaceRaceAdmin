@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnPaceRaceAdmin.Data;
@@ -11,6 +12,7 @@ using OnPaceRaceAdmin.ViewModels;
 
 namespace OnPaceRaceAdmin.Web.Controllers
 {
+    [Authorize]
     public class RunnersController : Controller
     {
         private ApplicationContext DbContext { get; set; }

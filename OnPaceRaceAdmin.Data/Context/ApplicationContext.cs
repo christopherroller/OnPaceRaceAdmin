@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnPaceRaceAdmin.Data
 {
@@ -34,7 +35,7 @@ namespace OnPaceRaceAdmin.Data
             modelBuilder.Entity<RacePace>().ToTable("RacePace");
             modelBuilder.Entity<RaceType>().ToTable("RaceType");
             modelBuilder.Entity<StatusRunner>().ToTable("StatusRunner");
-            modelBuilder.Entity<RaceStatus>().ToTable("RaceStatus");
+            modelBuilder.Entity<RaceStatus>().ToTable("StatusRace");
             modelBuilder.Entity<RunnerToRacePace>().ToTable("RunnerToRacePace");
         }
     }

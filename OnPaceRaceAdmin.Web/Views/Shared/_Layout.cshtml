@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+@inject  SignInManager<IdentityUser> signInManager;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,9 +30,24 @@
         <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand col-sm-3 col-md-2 mr-0">OnPaceRace - Admin</a>
         <input class="form-control form-control-dark w-25 float-right" type="text" placeholder="Search" aria-label="Search">
         <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
-            </li>
+
+            @if (signInManager.IsSignedIn(User))
+            {
+                <li class="nav-item text-nowrap">
+                    <form method="post" asp-action="SignOut" asp-controller="Account">
+                        <button class="nav-link btn btn-link py-0" style="width: auto;">Sign out @User.Identity.Name</button>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item text-nowrap">
+                    <form method="post" asp-action="SignIn" asp-controller="Account">
+                        <button class="nav-link btn btn-link py-0" style="width: auto;">Sign In</button>
+                    </form>
+                </li>
+            }
+
         </ul>
     </nav>
     <partial name="_CookieConsentPartial" />
