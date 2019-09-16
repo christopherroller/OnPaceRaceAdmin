@@ -22,7 +22,6 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // GET: Runners
         public IActionResult Index()
         {
-
             try
             {
                 var runners = DbContext.Runners.Include(r=>r.Gender).Include(r=>r.State).Include(r=>r.StatusRunner).OrderBy(o=>o.FirstName).ThenBy(o=>o.LastName)
@@ -80,25 +79,12 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId,ClothingSizeId,Age")] RunnerDTO runner)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId,ClothingSizeId,Age,City")] RunnerDTO runner)
         {
             if (ModelState.IsValid)
             {
-                var entity = new Runner()
-                {
-                    StateId = runner.StateId,
-                    Address = runner.Address,
-                    City = runner.City,
-                    FirstName = runner.FirstName,
-                    LastName = runner.LastName,
-                    Email = runner.Email,
-                    PhoneNumber = runner.PhoneNumber,
-                    Age = runner.Age,
-                    ClothingSizeId = runner.ClothingSizeId,
-                    GenderId = runner.GenderId,
-                    Zipcode = runner.Zipcode,
-                    RunnerStatusId = DbContext.StatusRunners.FirstOrDefault(s=>s.IsActive == true).Id
-                };
+                var entity = runner.MapToEntity(runner);
+                entity.RunnerStatusId = DbContext.StatusRunners.FirstOrDefault(s => s.IsActive == true).Id;
                 DbContext.Runners.Add(entity);
                 await DbContext.SaveChangesAsync();
                 runner.Id = entity.Id;
@@ -116,11 +102,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
             if (id != null)
             {
                 var rvm = new EditRunnerViewModel(DbContext);
-                rvm.InitModel((int)id);
-
-                rvm.RacePaces = rvm.GetRacePaces();
-                rvm.RaceTypes = rvm.GetRaceTypes();
-                rvm.RunnerRaceTypes = rvm.GetRunnerRaceTypes(rvm.Runner.Id);
+                await rvm.InitModel((int)id);
                 return View(rvm);
             }
             else
@@ -134,7 +116,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId,Address,City,StateId,Zipcode")]RunnerDTO runner)
+        public async Task<IActionResult> Edit([Bind("Id,FirstName,LastName,Email,PhoneNumber,StateId,Address,Zipcode,GenderId,Address,City,StateId,Zipcode,RunnerStatusId")]RunnerDTO runner)
         {
             if (runner.Id == 0 || runner.Id == null)
             {
@@ -142,14 +124,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                var entity = await DbContext.Runners.FindAsync(runner.Id);
-                entity.StateId = runner.StateId;
-                entity.Address = runner.Address;
-                entity.City = runner.City;
-                entity.FirstName = runner.FirstName;
-                entity.LastName = runner.LastName;
-                entity.Email = runner.Email;
-                entity.PhoneNumber = runner.PhoneNumber;
+                var entity = runner.MapToEntity(runner);
                 DbContext.Runners.Update(entity);
                 await DbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Details), new { Id = runner.Id });
@@ -157,7 +132,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
             else
             {
                 var rvm = new EditRunnerViewModel(DbContext);
-                rvm.InitModel((int)runner.Id);
+                await rvm.InitModel((int)runner.Id);
                 return View();
             }
 
@@ -232,7 +207,7 @@ namespace OnPaceRaceAdmin.Web.Controllers
             var note = DbContext.RunnerNotes.Find(NoteId);
             DbContext.RunnerNotes.Remove(note);
             await DbContext.SaveChangesAsync();
-            return Json(note.Id);
+            return Json(null);
         }
 
         [HttpPost, ActionName("AddRacePaceAndRaceType")]
@@ -241,15 +216,19 @@ namespace OnPaceRaceAdmin.Web.Controllers
         {
             if(RunnerId != null && RaceTypeId != null)
             {
-                var entity = DbContext.RunnerToRacePace.AddAsync(new RunnerToRacePace
+                //check existence for runner and race type
+                var exists = await DbContext.RunnerToRacePace.Where(r => r.RunnerId == RunnerId && r.RaceTypeId == RaceTypeId).AnyAsync();
+                if (!exists)
                 {
-                    RaceTypeId = RaceTypeId,
-                    RunnerId = RunnerId,
-                    RacePaceFromId = RacePaceFromId,
-                    RacePaceToId = RacePaceToId,               
-                });
-                await DbContext.SaveChangesAsync();
-
+                    var entity = DbContext.RunnerToRacePace.AddAsync(new RunnerToRacePace
+                    {
+                        RaceTypeId = RaceTypeId,
+                        RunnerId = RunnerId,
+                        RacePaceFromId = RacePaceFromId,
+                        RacePaceToId = RacePaceToId,               
+                    });
+                    await DbContext.SaveChangesAsync();
+                }
                 var racePaces = DbContext.RunnerToRacePace.Include(i => i.RacePaceFrom).Include(i => i.RacePaceTo).Include(i => i.RaceType).Where(w => w.RunnerId.Equals(RunnerId)).Select(s => new RunnerRaceTypeAndPace
                 {
                     Id = s.Id,
@@ -266,6 +245,22 @@ namespace OnPaceRaceAdmin.Web.Controllers
             {
                 return Json(null);
             }
+        }
+
+        [HttpPost, ActionName("DeleteRaceTypeAndPace")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteRaceTypeAndPace(int RunnerId, int Id)
+        {
+            if (RunnerId != null && Id != null)
+            {
+                var entity = DbContext.RunnerToRacePace.Find(Id);
+                if (entity != null)
+                {
+                    DbContext.Remove(entity);
+                    await DbContext.SaveChangesAsync();
+                }
+            }
+            return Json(null);
         }
     }
 }

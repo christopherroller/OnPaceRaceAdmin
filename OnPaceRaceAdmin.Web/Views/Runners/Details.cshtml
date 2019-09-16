@@ -42,7 +42,7 @@
                                     <div class="col-lg-3 col-sm-12">
                                         <div class="form-group">
                                             <h6>@Html.DisplayNameFor(model => model.Runner.LastName)</h6>
-                                            @Html.DisplayNameFor(model => model.Runner.LastName)
+                                            @Html.DisplayFor(model => model.Runner.LastName)
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-sm-12">
@@ -149,7 +149,7 @@
                         <h4>Runner Notes</h4>
                     </div>
                     <div class="card-body">
-                        <form asp-action="AddNote" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#runner-notes-@Model.Runner.Id">
+                        <form asp-action="AddNote" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-success="ClearNoteField" data-ajax-update="#runner-notes-@Model.Runner.Id">
                             @Html.AntiForgeryToken()
                             <div class="form-group">
                                 <label for="RunnerNote">New Note: </label>
@@ -184,25 +184,28 @@
                                 <form  asp-action="AddRacePaceAndRaceType" asp-controller="Runners" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#runner-race-paces-@Model.Runner.Id">
                                     @Html.AntiForgeryToken()
                                     <div class="form-group">
-                                        <label for="RaceType">Race Type</label>
-                                        <select id="RaceTypeId" asp-items="Model.RaceTypes" class="form-control">
+                                        <label for="RaceTypeId">Race Type</label>
+                                        <select id="RaceTypeDdl" asp-for="@Model.RaceTypeId" asp-items="Model.RaceTypes" class="form-control">
                                             <option>-- Select -- </option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="RacePaceFrom">Pace From</label>
-                                        <select id="RacePaceFromId" asp-items="Model.RacePaces" class="form-control">
+                                        <label for="RacePaceFromId">Pace From</label>
+                                        <select id="RacePaceFromDdl" asp-for="@Model.RacePaceFromId" asp-items="Model.RacePaces" class="form-control">
                                             <option>-- Select -- </option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="RacePaceTo">Pace To</label>
-                                        <select id="RacePaceToId" asp-items="Model.RacePaces" class="form-control">
+                                        <label for="RacePaceToId">Pace To</label>
+                                        <select id="RacePaceToDdl" asp-for="@Model.RacePaceToId" asp-items="Model.RacePaces" class="form-control">
                                             <option>-- Select -- </option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <input type="hidden" value="@Model.Runner.Id" name="RunnerId" id="RunnerId" />
+                                        @*<input type="hidden" name="RacePaceFromId" id="RacePaceFromId" />
+                                        <input type="hidden" name="RacePaceToId" id="RacePaceToId" />
+                                        <input type="hidden" name="RaceTypeId" id="RaceTypeId" />*@
                                         <input type="submit" class="btn btn-primary ml-auto float-right" value="Add" />
                                     </div>
 
@@ -222,3 +225,9 @@
     </div>
 </div>
 </div>
+
+<script>
+    function ClearNoteField() {
+        $("#RunnerNote").val() = '';
+    }
+</script>

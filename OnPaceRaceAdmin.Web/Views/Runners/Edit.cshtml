@@ -129,6 +129,15 @@
                         <span asp-validation-for="Runner.ClothingSizeId" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Runner.RunnerStatusId" class="control-label"></label>
+                        <select asp-for="Runner.RunnerStatusId" asp-items="Model.RunnerStatuses" class="form-control">
+                            <option>-- Select -- </option>
+                        </select>
+                        <span asp-validation-for="Runner.RunnerStatusId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

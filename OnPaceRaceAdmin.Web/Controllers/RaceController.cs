@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnPaceRaceAdmin.Data;
 using OnPaceRaceAdmin.Models;
+using OnPaceRaceAdmin.ViewModels;
 
 namespace OnPaceRaceAdmin.Web.Controllers
 {
@@ -45,13 +46,15 @@ namespace OnPaceRaceAdmin.Web.Controllers
         // GET: Race/Create
         public ActionResult Create()
         {
-            return View();
+            var rvm = new CreateRaceViewModel(DbContext);
+            rvm.InitModel();
+            return View(rvm);
         }
 
         // POST: Race/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RaceDTO race)
+        public ActionResult Create(CreateRaceViewModel crvm)
         {
             try
             {

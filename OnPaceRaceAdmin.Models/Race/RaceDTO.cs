@@ -1,14 +1,15 @@
-﻿using System;
+﻿using OnPaceRaceAdmin.Data;
+using OnPaceRaceAdmin.Models.Contracts;
+using OnPaceRaceAdmin.Models.Races;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace OnPaceRaceAdmin.Models
 {
-    public class RaceDTO
+    public class RaceDTO : IEntity<RaceDTO,Race>
     {
-        [Key]
         public int Id { get; set; }
 
         [Display(Name = "Race Name")]
@@ -39,5 +40,36 @@ namespace OnPaceRaceAdmin.Models
         [Required]
         [Display(Name = "Status")]
         public string RaceStatusName { get; set; }
+
+        public IEnumerable<RaceTypeDTO> RaceTypes { get; set; }
+        public RaceDTO()
+        {
+
+        }
+        public RaceDTO MapToDTO(Race race)
+        {
+            return new RaceDTO()
+            {
+                Id = race.Id,
+                RaceCity = race.RaceCity,
+                RaceDate = race.RaceDate,
+                RaceName = race.RaceName,
+                RaceStateId = race.RaceStateId,
+                RaceStatusId = race.RaceStatusId,
+            };
+        }
+
+        public Race MapToEntity(RaceDTO race)
+        {
+            return new Race()
+            {
+                Id = race.Id,
+                RaceName = race.RaceName,
+                RaceDate = race.RaceDate,
+                RaceCity = race.RaceCity,
+                RaceStatusId = race.RaceStatusId,
+                RaceStateId = race.RaceStateId
+            };
+        }
     }
 }

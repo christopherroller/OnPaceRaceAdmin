@@ -17,9 +17,7 @@ namespace OnPaceRaceAdmin.ViewModels
         public List<SelectListItem> Genders { get; set; } 
         public List<SelectListItem> States { get; set; }
         public List<SelectListItem> ClothingSizes { get; set; }
-        public List<SelectListItem> RaceTypes { get; set; }
-        public List<RunnerRaceTypeAndPace> RunnerRaceTypes { get; set; }
-        public List<SelectListItem> RacePaces { get; set; }
+        public List<SelectListItem> RunnerStatuses { get; set; }
 
         public EditRunnerViewModel(ApplicationContext context)
         {
@@ -32,6 +30,7 @@ namespace OnPaceRaceAdmin.ViewModels
             Genders = GetGenders();
             States = GetStates();
             ClothingSizes = GetClothingSizes(Runner.GenderId);
+            RunnerStatuses = GetRunnerStatuses();
         }
 
         private async Task<RunnerDTO> GetRunner(int Id)
@@ -40,26 +39,13 @@ namespace OnPaceRaceAdmin.ViewModels
             DbContext.Entry(entity).Reference(r => r.Gender);
             DbContext.Entry(entity).Reference(r => r.State);
             DbContext.Entry(entity).Reference(r => r.ClothingSize);
+            DbContext.Entry(entity).Reference(r => r.StatusRunner);
 
-            var runner = new RunnerDTO()
-            {
-                Address = entity.Address,
-                City = entity.City,
-                ClothingSize = entity.ClothingSize?.Name,
-                ClothingSizeId = entity.ClothingSizeId,
-                Email = entity.Email,
-                FirstName = entity.FirstName,
-                Gender = entity.Gender?.Name,
-                GenderId = entity.GenderId,
-                Id = entity.Id,
-                LastName = entity.LastName,
-                PhoneNumber = entity.PhoneNumber,
-                State = entity.State?.Name,
-                StateId = entity.StateId,
-                Zipcode = entity.Zipcode,
-                Age = entity.Age
-                
-            };
+            var runner = new RunnerDTO().MapToDTO(entity);
+            runner.ClothingSize = entity.ClothingSize?.Name;
+            runner.ClothingSizeId = entity.ClothingSizeId;
+            runner.State = entity.State?.Name;
+            runner.RunnerStatusName = entity.StatusRunner?.Name ?? DbContext.StatusRunners.FirstOrDefault(s=>s.IsActive == true).Name;             
             return runner;
         }
 
@@ -85,28 +71,9 @@ namespace OnPaceRaceAdmin.ViewModels
             }
         }
 
-        public List<SelectListItem> GetRaceTypes()
+        private List<SelectListItem> GetRunnerStatuses()
         { 
-            return DbContext.RaceTypes.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
+            return DbContext.StatusRunners.OrderBy(o => o.Name).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Name }).ToList();
         }
-
-        public List<SelectListItem> GetRacePaces()
-        {
-            return DbContext.RacePaces.OrderBy(o=>o.Pace).Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.Pace.ToString() }).ToList();
-        }
-
-        public List<RunnerRaceTypeAndPace> GetRunnerRaceTypes(int RunnerId)
-        {
-            return DbContext.RunnerToRacePace.Include(i=> i.RacePaceFrom).Include(i => i.RacePaceTo).Include(i=>i.RaceType).Where(w=>w.RunnerId.Equals(RunnerId)).Select(s => new RunnerRaceTypeAndPace
-            {
-                Id = s.Id,
-                RunnerId = s.RunnerId,
-                RaceTypeId = s.RaceTypeId,
-                RaceTypeName = s.RaceType.Name,
-                PaceTimeFrom = s.RacePaceFrom.Pace.ToString(),
-                PaceTimeTo = s.RacePaceTo.Pace.ToString()
-            }).ToList();
-        }
-
     }
 }

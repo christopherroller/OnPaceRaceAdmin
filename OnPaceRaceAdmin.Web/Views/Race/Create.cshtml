@@ -1,58 +1,105 @@
-﻿@model OnPaceRaceAdmin.Models.RaceDTO
+﻿@model OnPaceRaceAdmin.ViewModels.CreateRaceViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create - New Race</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="Id" />
-            <div class="form-group">
-                <label asp-for="RaceName" class="control-label"></label>
-                <input asp-for="RaceName" class="form-control" />
-                <span asp-validation-for="RaceName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RaceDate" class="control-label"></label>
-                <input asp-for="RaceDate" class="form-control" />
-                <span asp-validation-for="RaceDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RaceCity" class="control-label"></label>
-                <input asp-for="RaceCity" class="form-control" />
-                <span asp-validation-for="RaceCity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RaceStateId" class="control-label"></label>
-                <input asp-for="RaceStateId" class="form-control" />
-                <span asp-validation-for="RaceStateId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StateName" class="control-label"></label>
-                <input asp-for="StateName" class="form-control" />
-                <span asp-validation-for="StateName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RaceStatusId" class="control-label"></label>
-                <input asp-for="RaceStatusId" class="form-control" />
-                <span asp-validation-for="RaceStatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RaceStatusName" class="control-label"></label>
-                <input asp-for="RaceStatusName" class="form-control" />
-                <span asp-validation-for="RaceStatusName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>New Race</h2>
+        </div>            
+        <div class="col-sm-12">
+            <h5>Race Info</h5>
+        </div>
+        <div class="col-sm-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Race.Id" value="Id" />
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Race.RaceName" class="control-label"></label>
+                            <input asp-for="Race.RaceName" class="form-control" />
+                            <span asp-validation-for="Race.RaceName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Race.RaceCity" class="control-label"></label>
+                            <input asp-for="Race.RaceCity" class="form-control" />
+                            <span asp-validation-for="Race.RaceCity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Race.RaceStateId" class="control-label"></label>
+                            <select asp-for="Race.RaceStateId" asp-items="Model.States" class="form-control">
+                                <option>-- Select -- </option>
+                            </select>
+                            <span asp-validation-for="Race.RaceStateId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="Race.RaceDate" class="control-label"></label>
+                            <input asp-for="Race.RaceDate" type="date" class="form-control" />
+                            <span asp-validation-for="Race.RaceDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>Contact Info</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="RaceContact.FirstName" class="control-label"></label>
+                            <input asp-for="RaceContact.FirstName" class="form-control" />
+                            <span asp-validation-for="RaceContact.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="RaceContact.LastName" class="control-label"></label>
+                            <input asp-for="RaceContact.LastName" class="form-control" />
+                            <span asp-validation-for="RaceContact.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="RaceContact.Email" class="control-label"></label>
+                            <input asp-for="RaceContact.Email" class="form-control" />
+
+                            <span asp-validation-for="RaceContact.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label asp-for="RaceContact.PhoneNumber" class="control-label"></label>
+                            <input asp-for="RaceContact.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="RaceContact.PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
-</div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+</script>
 

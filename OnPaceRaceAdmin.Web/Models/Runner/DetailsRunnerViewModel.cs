@@ -19,6 +19,9 @@ namespace OnPaceRaceAdmin.ViewModels
         public IEnumerable<RunnerNoteDTO> RunnerNotes { get; set; }
         public List<SelectListItem> RaceTypes { get; set; }
         public List<SelectListItem> RacePaces { get; set; }
+        public int RaceTypeId { get; set; }
+        public int RacePaceFromId { get; set; }
+        public int RacePaceToId { get; set; }
         public IEnumerable<RunnerRaceTypeAndPace> RunnerRacePaces { get; set; }
 
         public DetailsRunnerViewModel(ApplicationContext context)
@@ -29,27 +32,10 @@ namespace OnPaceRaceAdmin.ViewModels
         public RunnerDTO GetRunner(int Id)
         {
             var entity = _context.Runners.Include(r => r.Gender).Include(r => r.State).Include(r => r.StatusRunner).Include(r => r.ClothingSize).SingleOrDefault(r => r.Id.Equals(Id));
-
-            var runner = new RunnerDTO()
-            {
-                Address = entity.Address,
-                City = entity.City,
-                ClothingSize = entity.ClothingSize?.Name,
-                Email = entity.Email,
-                FirstName = entity.FirstName,
-                Gender = entity.Gender?.Name,
-                Id = entity.Id,
-                LastName = entity.LastName,
-                PhoneNumber = entity.PhoneNumber,
-                State = entity.State?.Name,
-                Zipcode = entity.Zipcode,
-                Age = entity.Age,
-                ClothingSizeId = entity.ClothingSizeId,
-                GenderId = entity.GenderId,
-                StateId = entity.StateId,
-                RunnerStatusName = entity.StatusRunner.Name
-            };
-
+            var runner = new RunnerDTO().MapToDTO(entity);
+            runner.ClothingSize = entity.ClothingSize?.Name;
+            runner.State = entity.State?.Name;
+            runner.RunnerStatusName = entity.StatusRunner.Name;
             return runner;
         }
 
@@ -72,8 +58,8 @@ namespace OnPaceRaceAdmin.ViewModels
                     Id = s.Id,
                     RaceTypeId = s.RaceTypeId,
                     RunnerId = s.RunnerId,
-                    PaceTimeFrom = s.RacePaceFrom.Pace.ToString("hh:mm"),
-                    PaceTimeTo = s.RacePaceTo.Pace.ToString("hh:mm"),
+                    PaceTimeFrom = s.RacePaceFrom.Pace.ToString(),
+                    PaceTimeTo = s.RacePaceTo.Pace.ToString(),
                     PaceTimeFromId = s.RacePaceFromId,
                     PaceTimeToId = s.RacePaceToId,
                     RaceTypeName = s.RaceType.Name              

@@ -1,9 +1,10 @@
-﻿using OnPaceRaceAdmin.Models.Contracts;
+﻿using OnPaceRaceAdmin.Data;
+using OnPaceRaceAdmin.Models.Contracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnPaceRaceAdmin.Models
 {
-    public class RunnerDTO : IEntity
+    public class RunnerDTO : IEntity<RunnerDTO, Runner>
     {
         public int Id { get; set; }
 
@@ -56,5 +57,44 @@ namespace OnPaceRaceAdmin.Models
         [Display(Name = "Runner Status")]
         public string RunnerStatusName { get; set; }
 
+        public RunnerDTO MapToDTO(Runner entity)
+        {
+            return new RunnerDTO()
+            {
+                Id = entity.Id,
+                ClothingSizeId = entity.ClothingSizeId,
+                Email = entity.Email,
+                FirstName = entity.FirstName,
+                GenderId = entity.GenderId,
+                LastName = entity.LastName,
+                PhoneNumber = entity.PhoneNumber,
+                RunnerStatusId = entity.RunnerStatusId,
+                StateId = entity.StateId,
+                Zipcode = entity.Zipcode,
+                Address = entity.Address,
+                Age = entity.Age,
+                City = entity.City,
+            };
+        }
+
+        public Runner MapToEntity(RunnerDTO dto)
+        {
+            return new Runner()
+            {
+                Id = dto.Id,
+                ClothingSizeId = dto.ClothingSizeId,
+                Email = dto.Email,
+                FirstName = dto.FirstName,
+                GenderId = dto.GenderId,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                RunnerStatusId = dto.RunnerStatusId,
+                StateId = dto.StateId,
+                Zipcode = dto.Zipcode,
+                Address = dto.Address,
+                Age = dto.Age,
+                City = dto.City,
+            };
+        }
     }
 }

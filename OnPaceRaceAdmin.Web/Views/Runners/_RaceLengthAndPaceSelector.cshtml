@@ -22,11 +22,11 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="RacePaceType_@(item.RunnerId)_@item.Id">
                 <td>
                     @Html.DisplayFor(modelItem => item.RaceTypeName)
                 </td>
-  
+
                 <td>
                     @Html.DisplayFor(modelItem => item.PaceTimeFrom)
                 </td>
@@ -34,9 +34,10 @@
                     @Html.DisplayFor(modelItem => item.PaceTimeTo)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <form asp-action="DeleteRaceTypeAndPace" asp-controller="Runners" data-ajax="true" asp-route-id="@item.Id" asp-route-runnerId="@item.RunnerId" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#RacePaceType_@(item.RunnerId)_@item.Id">
+                        @Html.AntiForgeryToken()
+                        <input type="submit" class="btn btn-danger ml-auto float-right" value="Delete" />
+                    </form>
                 </td>
             </tr>
         }
